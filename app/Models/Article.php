@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tag extends Model
+class Article extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -16,7 +16,8 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'category_id',
+        'title',
         'slug',
     ];
 
@@ -27,11 +28,17 @@ class Tag extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'category_id' => 'integer',
     ];
 
 
-    public function articles()
+    public function tags()
     {
-        return $this->belongsToMany(\App\Article::class);
+        return $this->belongsToMany(\App\Tag::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(\App\Category::class);
     }
 }

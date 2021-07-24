@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tag extends Model
+class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -16,8 +15,13 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
+        'parent_id',
+        'lft',
+        'rgt',
+        'depth',
         'name',
         'slug',
+        'softDeletes',
     ];
 
     /**
@@ -27,11 +31,12 @@ class Tag extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'parent_id' => 'integer',
     ];
 
 
-    public function articles()
+    public function parent()
     {
-        return $this->belongsToMany(\App\Article::class);
+        return $this->belongsTo(\App\Category::class);
     }
 }

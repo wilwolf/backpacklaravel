@@ -1,0 +1,21 @@
+created:
+    - database/factories/Models/CategoryFactory.php
+    - database/factories/Models/ArticleFactory.php
+    - database/factories/Models/TagFactory.php
+    - database/migrations/2021_07_24_172330_create_categories_table.php
+    - database/migrations/2021_07_24_172331_create_articles_table.php
+    - database/migrations/2021_07_24_172332_create_tags_table.php
+    - database/migrations/2021_07_24_172333_create_article_tag_table.php
+    - app/Models/Category.php
+    - app/Models/Article.php
+    - app/Models/Tag.php
+    - database/seeders/ArticleSeeder.php
+    - database/seeders/CategorySeeder.php
+    - database/seeders/TagSeeder.php
+models:
+    Category: { parent_id: 'id foreign:categories nullable', lft: 'integer unsignednullable', rgt: 'integer unsignednullable', depth: 'integer unsignednullable', name: string, slug: 'string unique', timestamps: timestamps, softDeletes: 'hasMany:Article' }
+    Article: { category_id: 'id foreign', title: string, slug: 'string unique default:0', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag } }
+    Tag: { name: string, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Article } }
+    Models\Category: { parent_id: 'id foreign:categories nullable', lft: 'integer unsignednullable', rgt: 'integer unsignednullable', depth: 'integer unsignednullable', name: string, slug: 'string unique', timestamps: timestamps, softDeletes: 'hasMany:Article' }
+    Models\Article: { category_id: 'id foreign', title: string, slug: 'string unique default:0', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag } }
+    Models\Tag: { name: string, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Article } }
